@@ -1,11 +1,11 @@
 import { Text, StyleSheet, Alert, Pressable } from "react-native";
 
-export const SubmitButton = ({ title }) => {
+export const SubmitButton = ({ title, data }) => {
+  const submit = () => {
+    console.log(data);
+  };
   return (
-    <Pressable
-      style={styles.button}
-      onPress={() => Alert.alert("Button with adjusted color pressed")}
-    >
+    <Pressable style={styles.button} onPress={submit}>
       <Text style={styles.text}>{title}</Text>
     </Pressable>
   );

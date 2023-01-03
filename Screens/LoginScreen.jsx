@@ -9,12 +9,11 @@ import {
   Platform,
 } from "react-native";
 import { useState, useCallback, useRef } from "react";
-import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
+
 import { Input } from "../components/Input";
 import { SubmitButton } from "../components/Button";
-SplashScreen.preventAutoHideAsync();
-export const LoginScreen = () => {
+
+export const LoginScreen = ({ onLayout }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(true);
@@ -24,25 +23,9 @@ export const LoginScreen = () => {
   const passwordHandler = (pass) => setPassword(pass);
   const showPassHandler = () => setShowPass((prev) => !prev);
 
-  const [fontsLoaded] = useFonts({
-    "Roboto-Regular": require("../assets/fonts/Roboto-Regular.ttf"),
-    "Roboto-Bold": require("../assets/fonts/Roboto-Bold.ttf"),
-  });
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
-  if (!fontsLoaded) {
-    return null;
-  }
-
   return (
-    <View style={styles.container}>
-      <TouchableWithoutFeedback
-        onPress={Keyboard.dismiss}
-        onLayout={onLayoutRootView}
-      >
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container} onLayout={onLayout}>
         <ImageBackground
           style={styles.backImg}
           source={require("../assets/img/back.png")}
@@ -68,7 +51,10 @@ export const LoginScreen = () => {
                 onChangeText={passwordHandler}
                 setIsShowKeyboard={setIsShowKeyboard}
               ></Input>
-              <SubmitButton title="Увійти"></SubmitButton>
+              <SubmitButton
+                title="Увійти"
+                data={{ email, password }}
+              ></SubmitButton>
               <Text
                 style={{
                   ...styles.textDecol,
@@ -80,8 +66,8 @@ export const LoginScreen = () => {
             </View>
           </KeyboardAvoidingView>
         </ImageBackground>
-      </TouchableWithoutFeedback>
-    </View>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 const styles = StyleSheet.create({

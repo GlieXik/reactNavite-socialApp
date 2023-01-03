@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { TextInput, StyleSheet, View, Text, Pressable } from "react-native";
+import { useState, useRef } from "react";
+import { TextInput, StyleSheet, View, Text } from "react-native";
 
 export const Input = ({
   holder,
