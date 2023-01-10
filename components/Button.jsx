@@ -1,8 +1,9 @@
 import { Text, StyleSheet, Alert, Pressable } from "react-native";
 
-export const SubmitButton = ({ title, data }) => {
+export const SubmitButton = ({ title, data, onPress }) => {
   const submit = () => {
     console.log(data);
+    onPress();
   };
   return (
     <Pressable style={styles.button} onPress={submit}>
@@ -14,16 +15,14 @@ const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     justifyContent: "center",
-    marginHorizontal: 16,
 
-    marginTop: 43 - 16,
+    marginTop: 32,
     paddingVertical: 16,
     borderRadius: 100,
-    elevation: 3,
+
     backgroundColor: "#FF6C00",
   },
   text: {
-    fontFamily: "Roboto-Regular",
     fontSize: 16,
     color: "#fff",
   },

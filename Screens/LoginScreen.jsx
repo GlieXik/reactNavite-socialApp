@@ -13,7 +13,7 @@ import { useState, useCallback, useRef } from "react";
 import { Input } from "../components/Input";
 import { SubmitButton } from "../components/Button";
 
-export const LoginScreen = ({ onLayout }) => {
+export const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(true);
@@ -25,14 +25,12 @@ export const LoginScreen = ({ onLayout }) => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container} onLayout={onLayout}>
+      <View style={styles.container}>
         <ImageBackground
           style={styles.backImg}
           source={require("../assets/img/back.png")}
         >
-          <KeyboardAvoidingView
-            behavior={Platform.OS == "ios" ? "padding" : "height"}
-          >
+          <KeyboardAvoidingView behavior="position">
             <View style={styles.div}>
               <Text style={styles.title}>Увійти</Text>
               <Input
@@ -54,12 +52,14 @@ export const LoginScreen = ({ onLayout }) => {
               <SubmitButton
                 title="Увійти"
                 data={{ email, password }}
+                onPress={() => navigation.navigate("Home")}
               ></SubmitButton>
               <Text
                 style={{
                   ...styles.textDecol,
                   marginBottom: isShowKeyboard ? 32 : 144,
                 }}
+                onPress={() => navigation.navigate("Registration")}
               >
                 Нема акаунту? Зареєструватися
               </Text>
@@ -92,7 +92,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 30,
     fontWeight: "bold",
-    fontFamily: "Roboto-Regular",
   },
   textDecol: {
     textAlign: "center",
